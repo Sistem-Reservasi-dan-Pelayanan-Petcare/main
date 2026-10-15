@@ -1,5 +1,5 @@
 <h3><br>Judul/Tema        : Sistem Reservasi dan Pelayanan Petcare</h3><br>
-<h3></h3>Anggota & Peran   :<h3></h3><br>
+<h3></h3>Anggota & Peran   :</h3><br>
 <ol>
                     <li> Daffa Rian Hadisaputra</li><br>
                     <li> Daffa Naufal Abiyyi</li><br>
