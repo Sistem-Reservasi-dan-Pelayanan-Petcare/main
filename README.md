@@ -1,9 +1,11 @@
-Judul/Tema        : Sistem Reservasi dan Pelayanan Petcare<br>
+<br>Judul/Tema        : Sistem Reservasi dan Pelayanan Petcare</h3><br>
 Anggota & Peran   :<br>
-                    - Daffa Rian Hadisaputra<br>
-                    - Daffa Naufal Abiyyi<br>
-                    - Octavia Putri Vierene<br>
-                    - Sabichisma Sania Rachman<br>
+<ul>
+                    <li>- Daffa Rian Hadisaputra</li><br>
+                    <li>- Daffa Naufal Abiyyi</li><br>
+                    <li>- Octavia Putri Vierene</li><br>
+                    <li>- Sabichisma Sania Rachman</li><br>
+</ul>
 
 <h3>Deskripsi & Tujuan:</h3><br>
 
