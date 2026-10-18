@@ -1,8 +1,10 @@
 import json
 import os
 import pwinput
-import csv
 from prettytable import PrettyTable
+import time
+
+users = []
 
 def clears():
     input("\nKlik Enter untuk kembali ke menu...")
@@ -13,7 +15,155 @@ def readjson(jsfile):
         data = json.load(f)
     return data
 
-def readcsv(csvfile):
-    with open (csvfile) as cf:
-        cdata = csv.reader(cf, delimiter=",")
-    return cdata
+def writejson(jsfile, data):
+    with open(jsfile, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=4)
+
+def tambah_reservasi(data_baru):
+    data = readjson("reservations.json")
+    data.append(data_baru)
+    writejson("reservations.json", data)
+
+def layanan():
+    pelayanan = PrettyTable()
+    pelayanan.title = "LAYANAN YANG TERSEDIA"
+    pelayanan.field_names = ["Layanan", "Harga"]
+    pelayanan.add_row(["Perawatan (Grooming)", "Rp.75k - Rp.100k"])
+    pelayanan.add_row(["Penitipan (Daycare)", "Rp.150k/malam"])
+    print(pelayanan)
+
+def reservasi():
+    while True:
+        try:
+            print("Reservasi Layanan")
+            print("1: Perawatan")
+            print("2: Penitipan")
+            print("0: Keluar")
+            opsi = input("Pilih layanan: ")
+
+            if opsi == "1":
+                nama = input("Masukkan nama: ")
+                jenis = input("Masukkan jenis hewan: ")
+                berat = int(input("Masukkan berat badan hewan (kg bulat): "))
+                jam = input("Masukkan jam datang: ")
+                tanggal = input("Masukkan tanggal datang (HH/BB): ")
+
+                if berat <= 0:
+                    print("Berat tidak boleh 0")
+                    continue
+                elif berat <= 10:
+                    harga = 75000
+                else:
+                    harga = 100000
+
+                data = {
+                    "layanan": "Perawatan",
+                    "nama": nama,
+                    "jenis": jenis,
+                    "berat": berat,
+                    "jam": jam,
+                    "tanggal": tanggal,
+                    "harga": harga,
+                    "status": "Belum lunas"
+                }
+
+                tambah_reservasi(data)
+                print("Reservasi berhasil")
+                break
+
+            elif opsi == "2":
+                nama = input("Masukkan nama: ")
+                jenis = input("Masukkan jenis hewan: ")
+                malam = int(input("Masukkan jumlah malam penitipan: "))
+                tanggal = input("Masukkan tanggal datang (HH/BB): ")
+                jam = input("Masukkan jam datang (JJ:MM): ")
+
+                if malam <= 0: 
+                    print("Jumlah malam harus lebih dari 0")
+                    continue
+
+                harga = 150000 * malam
+
+                data= {
+                    "layanan": "Penitipan",
+                    "nama": nama,
+                    "jenis": jenis,
+                    "malam": malam,
+                    "tanggal": tanggal,
+                    "jam": jam,
+                    "harga": harga,
+                    "status": "Belum lunas"
+                }
+
+                tambah_reservasi(data)
+                print("Reservasi berhasil")
+                break
+            
+            elif opsi == "0":
+                break
+            else:
+                print("Opsi tidak valid")
+        except ValueError as e:
+            print("Masukkan angka yang sesuai")
+
+def menu_user(user):
+    while True:
+        print("======== MENU USER ========")
+        print("1: Layanan")
+        print("2: Reservasi")
+        print("3: Saldo & Pembayaran")
+        print("0: Logout")
+        opsi = input("Pilih menu: ")
+
+        if opsi == "1":
+            layanan()
+            clears()
+        elif opsi == "2":
+            reservasi()
+            clears()
+        elif opsi == "3":
+            print("Andaikan ini menu saldo dan pembayaran")
+        elif opsi == "0":
+            break
+        else:
+            print("Opsi tidak valid")
+
+def menu_admin(user):
+    while True:
+        print("Ini adalah menu admin")
+        time.sleep(3)
+        break
+
+def login():
+    username = input("Masukkan username: ")
+    password = pwinput.pwinput("Masukkan password: ")
+
+    users = readjson("users.json")
+    for user in users:
+        if user["username"] == username and user["password"] == password:
+            print("Login berhasil")
+            if user["role"] == "admin":
+                menu_admin(user)
+            else:
+                menu_user(user)
+            return
+    
+def main():
+    while True:
+        print("Selamat datang di aplikasi PetCare")
+        print("1: Login")
+        print("2: Register")
+        print("0: Keluar")
+        opsi = input("Pilih menu: ")
+
+        if opsi == "1":
+            login()
+        elif opsi == "2":
+            print("Andaikan ini menu registrasi")
+        elif opsi == "0":
+            print("Terimakasih")
+            break
+        else:
+            print("Opsi tidak valid")
+
+main()
