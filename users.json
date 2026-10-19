@@ -9,6 +9,14 @@
         "id": 1002,
         "username": "user",
         "password": "user1234",
-        "role": "user"
+        "role": "user",
+        "saldo": 0
+    },
+    {
+        "id": 1003,
+        "username": "asep",
+        "password": "asep1234",
+        "role": "user",
+        "saldo": 0
     }
 ]

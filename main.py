@@ -6,8 +6,10 @@ import time
 
 users = []
 
-def clears():
+def clearpause():
     input("\nKlik Enter untuk kembali ke menu...")
+    os.system("cls" if os.name == "nt" else "clear")
+def clears():
     os.system("cls" if os.name == "nt" else "clear")
     
 def readjson(jsfile):
@@ -19,10 +21,28 @@ def writejson(jsfile, data):
     with open(jsfile, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
-def tambah_reservasi(data_baru):
-    data = readjson("reservations.json")
+def tambah_data(data_baru, jsfile):
+    data = readjson(jsfile)
     data.append(data_baru)
-    writejson("reservations.json", data)
+    writejson(jsfile, data)
+
+def registrasi():
+    users = readjson("users.json")
+    usn = input("Masukkan username: ")
+    psw = pwinput.pwinput("Masukkan password: ")
+
+    data = {
+        "id": max((user["id"] for user in users), default=1000) + 1,
+        "username": usn,
+        "password": psw,
+        "role": "user",
+        "saldo": 0
+    }
+
+    tambah_data(data, "users.json")
+
+    print("Registrasi berhasil")
+    clearpause()
 
 def layanan():
     pelayanan = PrettyTable()
@@ -87,8 +107,10 @@ def reservasi(user):
                     "status": "Belum lunas"
                 }
 
-                tambah_reservasi(data)
+                tambah_data(data, "reservations.json")
                 print("Reservasi berhasil")
+                time.sleep(2)
+                clears()
                 break
 
             elif opsi == "2":
@@ -116,8 +138,10 @@ def reservasi(user):
                     "status": "Belum lunas"
                 }
 
-                tambah_reservasi(data)
+                tambah_data(data, "reservations.json")
                 print("Reservasi berhasil")
+                time.sleep(2)
+                clears()
                 break
 
             elif opsi == "3":
@@ -140,10 +164,8 @@ def menu_user(user):
 
         if opsi == "1":
             layanan()
-            clears()
         elif opsi == "2":
             reservasi(user)
-            clears()
         elif opsi == "3":
             print("Andaikan ini menu saldo dan pembayaran")
         elif opsi == "0":
@@ -184,7 +206,7 @@ def main():
             os.system("cls" if os.name == "nt" else "clear")
             login()
         elif opsi == "2":
-            print("Andaikan ini menu registrasi")
+            registrasi()
         elif opsi == "0":
             print("Terimakasih")
             break
