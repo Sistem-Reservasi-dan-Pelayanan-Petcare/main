@@ -103,7 +103,7 @@ def reservasi():
                 break
             else:
                 print("Opsi tidak valid")
-        except ValueError as e:
+        except ValueError:
             print("Masukkan angka yang sesuai")
 
 def menu_user(user):
@@ -157,6 +157,7 @@ def main():
         opsi = input("Pilih menu: ")
 
         if opsi == "1":
+            os.system("cls" if os.name == "nt" else "clear")
             login()
         elif opsi == "2":
             print("Andaikan ini menu registrasi")
