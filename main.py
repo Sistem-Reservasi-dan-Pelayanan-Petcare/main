@@ -131,18 +131,28 @@ def managereserv():
                     tabel.title = "LIST RESERVASI"
                     tabel.field_names = ["ID", "User ID", "Layanan", "Nama", "Jenis",
                         "Berat/Malam", "Tanggal", "Jam", "Harga", "Status"]
-
-                for r in data:
-                    detail = f"{r['berat']} kg" if r["layanan"] == "Perawatan" else f"{r['malam']} malam"
-                    tabel.add_row([r["res_id"], r["user_id"], r["layanan"], r["nama"],
-                            r["jenis"], detail, r["tanggal"], r["jam"],
-                            f"Rp.{r['harga']}", r["status"]])
-                print(tabel)
+                    for r in data:
+                        detail = f"{r['berat']} kg" if r["layanan"] == "Perawatan" else f"{r['malam']} malam"
+                        tabel.add_row([r["res_id"], r["user_id"], r["layanan"], r["nama"],
+                           r["jenis"], detail, r["tanggal"], r["jam"],
+                           f"Rp.{r['harga']}", r["status"]])
+                    print(tabel)
                 clearpause()
+                
             elif opsi == "2":
                 resid = int(input("Masukkan ID Reservasi yang ingin dibatalkan: "))
-
-
+                target = next((r for r in data if r["res_id"] == resid), None)
+                if target is None:
+                    print("Reservasi tidak ditemukan")
+                else:
+                    confirm = input(f"Batalkan reservasi {resid} ({target['layanan']}, hewan '{target['nama']}')? (y/n): ").strip().lower()
+                if confirm == "y":
+                    data.remove(target)
+                    writejson("reservations.json", data)
+                    print("Reservasi dibatalkan")
+                else:
+                    print("Dibatalkan")
+                clearpause()
 
             elif opsi == "0":
                 clears()
@@ -153,6 +163,7 @@ def managereserv():
 
         except ValueError:
             print("ID harus berupa angka")
+            clearpause()
             continue
 
             
