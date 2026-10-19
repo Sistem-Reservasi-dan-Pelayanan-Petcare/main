@@ -11,7 +11,17 @@ def clearpause():
     os.system("cls" if os.name == "nt" else "clear")
 def clears():
     os.system("cls" if os.name == "nt" else "clear")
-    
+
+def input_angka(pesan):
+    while True:
+        try:
+            nilai = int(input(pesan))
+            if nilai > 0:
+                return nilai
+            print("Harus lebih dari 0.")
+        except ValueError:
+            print("Masukkan angka yang valid.")
+
 def readjson(jsfile):
     with open (jsfile, "r", encoding="utf-8") as f:
         data = json.load(f)
@@ -29,7 +39,15 @@ def tambah_data(data_baru, jsfile):
 def registrasi():
     users = readjson("users.json")
     usn = input("Masukkan username: ")
-    psw = pwinput.pwinput("Masukkan password: ")
+    if not usn:
+        print("Username tidak boleh kosong.")
+    elif any(u["username"] == usn for u in users):
+        print("Username sudah dipakai.")
+    else:
+        psw = pwinput.pwinput("Masukkan password: ")
+        if len (psw) < 8:
+            print("Password harus minimal 8 karakter")
+            return
 
     data = {
         "id": max((user["id"] for user in users), default=1000) + 1,
@@ -72,7 +90,6 @@ def lihat_reservasi(user):
 
 def reservasi(user):
     while True:
-        try:
             print("Reservasi Layanan")
             print("1: Perawatan")
             print("2: Penitipan")
@@ -83,7 +100,7 @@ def reservasi(user):
             if opsi == "1":
                 nama = input("Masukkan nama hewan: ")
                 jenis = input("Masukkan jenis hewan: ")
-                berat = int(input("Masukkan berat badan hewan (kg bulat): "))
+                berat = input_angka("Masukkan berat badan hewan (kg bulat): ")
                 jam = input("Masukkan jam datang: ")
                 tanggal = input("Masukkan tanggal datang (HH/BB): ")
 
@@ -116,7 +133,7 @@ def reservasi(user):
             elif opsi == "2":
                 nama = input("Masukkan nama hewan: ")
                 jenis = input("Masukkan jenis hewan: ")
-                malam = int(input("Masukkan jumlah malam penitipan: "))
+                malam = input_angka("Masukkan jumlah malam penitipan: ")
                 tanggal = input("Masukkan tanggal datang (HH/BB): ")
                 jam = input("Masukkan jam datang (JJ:MM): ")
 
@@ -150,8 +167,6 @@ def reservasi(user):
                 break
             else:
                 print("Opsi tidak valid")
-        except ValueError:
-            print("Masukkan angka yang sesuai")
 
 def menu_user(user):
     while True:
@@ -164,13 +179,16 @@ def menu_user(user):
 
         if opsi == "1":
             layanan()
+            clearpause()
         elif opsi == "2":
             reservasi(user)
         elif opsi == "3":
             print("Andaikan ini menu saldo dan pembayaran")
         elif opsi == "0":
+            clears()
             break
         else:
+            clears()
             print("Opsi tidak valid")
 
 def menu_admin(user):
@@ -187,7 +205,8 @@ def login():
     for user in users:
         if user["username"] == username and user["password"] == password:
             print("Login berhasil")
-            identitas = ["id"]
+            time.sleep(2)
+            clears()
             if user["role"] == "admin":
                 menu_admin(user)
             else:
@@ -213,4 +232,8 @@ def main():
         else:
             print("Opsi tidak valid")
 
-main()
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nProgram dihentikan.")
