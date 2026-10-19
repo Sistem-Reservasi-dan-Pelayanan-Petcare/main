@@ -1,12 +1,13 @@
 [
     {
-        "user_id": 1002,
+        "user_id": 1003,
+        "res_id": 2001,
         "layanan": "Perawatan",
-        "nama": "sigma",
+        "nama": "tes",
         "jenis": "kucing",
-        "berat": 20,
+        "berat": 13,
         "jam": "13.00",
-        "tanggal": "13/09",
+        "tanggal": "13/04",
         "harga": 100000,
         "status": "Belum lunas"
     }

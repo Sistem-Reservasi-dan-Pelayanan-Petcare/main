@@ -36,17 +36,145 @@ def tambah_data(data_baru, jsfile):
     data.append(data_baru)
     writejson(jsfile, data)
 
+def res_id_new():
+    data = readjson("reservations.json")
+    return max((r["res_id"] for r in data), default=2000) + 1
+
+def manageusers():
+    while True:
+        data = readjson("users.json")
+        print("Manajemen User")
+        print("1: Lihat User")
+        print("2: Topup Saldo User")
+        print("3: Hapus User")
+        print("0: Kembali")
+        opsi = input("Pilih opsi: ")
+
+        if opsi == "1":
+            tabel = PrettyTable()
+            tabel.title = "LIST USER"
+            tabel.field_names = ["ID", "Username", "Saldo"]
+            for u in data:
+                if u["role"] == "user":
+                    tabel.add_row([u["id"], u["username"], f"Rp.{u['saldo']}"])
+            print(tabel)
+            clearpause()
+
+        elif opsi == "2":
+            try:
+                uid = int(input("Masukkan ID User: "))
+                jumlah = int(input("Masukkan jumlah topup: "))
+            except ValueError:
+                print("Input harus berupa angka")
+                clearpause()
+                continue
+
+            if jumlah <=0:
+                print("Jumlah harus lebih dari 0")
+                clearpause()
+                continue
+
+            for u in data:
+                if u["id"] == uid and u["role"] == "user":
+                    u["saldo"] += jumlah
+                    writejson("users.json", data)
+                    print(f"Topup berhasil, Saldo {u['username']}: {u['saldo']}")
+                    break
+            else:
+                print("User tidak ditemukan")
+            clearpause()
+
+        elif opsi == "3":
+            try:
+                uid = int(input("Masukkan ID user yang ingin dihapus: "))
+            except ValueError:
+                print("ID harus berupa angka")
+                continue
+
+            userdel = next((u for u in data if u["id"] == uid and u["role"] == "user"), None)
+            if userdel is None:
+                print("User tidak ditemukan")
+            else:
+                confirm = input(f"Hapus user {userdel['username']}? (y/n): ")
+                if confirm == "y":
+                    data.remove(userdel)
+                    writejson("users.json", data)
+                    reservations = readjson("reservations.json")
+                    reservations = [r for r in reservations if r.get("user_id") != uid]
+                    writejson("reservations.json", reservations)
+                    print("User berhasil dihapus")
+                else:
+                    print("Dibatalkan")
+            clearpause()
+
+        elif opsi == "0":
+            break
+        else:
+            clears()
+            print("Opsi tidak valid")
+
+def managereserv():
+    while True:
+        try:
+            data = readjson("reservations.json")
+            print("Manajemen Reservasi")
+            print("1: List Reservasi")
+            print("2: Membatalkan Reservasi")
+            print("0: Keluar")
+            opsi = input("Pilih opsi: ")
+
+            if opsi == "1":
+                if not data:
+                    print("Belum ada reservasi.")
+                else:
+                    tabel = PrettyTable()
+                    tabel.title = "LIST RESERVASI"
+                    tabel.field_names = ["ID", "User ID", "Layanan", "Nama", "Jenis",
+                        "Berat/Malam", "Tanggal", "Jam", "Harga", "Status"]
+
+                for r in data:
+                    detail = f"{r['berat']} kg" if r["layanan"] == "Perawatan" else f"{r['malam']} malam"
+                    tabel.add_row([r["res_id"], r["user_id"], r["layanan"], r["nama"],
+                            r["jenis"], detail, r["tanggal"], r["jam"],
+                            f"Rp.{r['harga']}", r["status"]])
+                print(tabel)
+                clearpause()
+            elif opsi == "2":
+                resid = int(input("Masukkan ID Reservasi yang ingin dibatalkan: "))
+
+
+
+            elif opsi == "0":
+                clears()
+                break
+
+
+
+
+        except ValueError:
+            print("ID harus berupa angka")
+            continue
+
+            
+            
+            
+
 def registrasi():
     users = readjson("users.json")
     usn = input("Masukkan username: ")
     if not usn:
-        print("Username tidak boleh kosong.")
+        print("Username tidak boleh kosong!")
+        clearpause()
+        return
     elif any(u["username"] == usn for u in users):
-        print("Username sudah dipakai.")
+        print("Username sudah dipakai!")
+        clearpause()
+        return
     else:
         psw = pwinput.pwinput("Masukkan password: ")
         if len (psw) < 8:
             print("Password harus minimal 8 karakter")
+            clearpause()
             return
 
     data = {
@@ -102,7 +230,7 @@ def reservasi(user):
                 jenis = input("Masukkan jenis hewan: ")
                 berat = input_angka("Masukkan berat badan hewan (kg bulat): ")
                 jam = input("Masukkan jam datang: ")
-                tanggal = input("Masukkan tanggal datang (HH/BB): ")
+                tanggal = input("Masukkan tanggal datang (DD/MM): ")
 
                 if berat <= 0:
                     print("Berat tidak boleh 0")
@@ -114,6 +242,7 @@ def reservasi(user):
 
                 data = {
                     "user_id": user["id"],
+                    "res_id": res_id_new(),
                     "layanan": "Perawatan",
                     "nama": nama,
                     "jenis": jenis,
@@ -133,7 +262,7 @@ def reservasi(user):
                 nama = input("Masukkan nama hewan: ")
                 jenis = input("Masukkan jenis hewan: ")
                 malam = input_angka("Masukkan jumlah malam penitipan: ")
-                tanggal = input("Masukkan tanggal datang (HH/BB): ")
+                tanggal = input("Masukkan tanggal datang (DD/MM): ")
                 jam = input("Masukkan jam datang (JJ:MM): ")
 
                 if malam <= 0: 
@@ -144,6 +273,7 @@ def reservasi(user):
 
                 data= {
                     "user_id": user["id"],
+                    "res_id": res_id_new(),
                     "layanan": "Penitipan",
                     "nama": nama,
                     "jenis": jenis,
@@ -161,9 +291,11 @@ def reservasi(user):
 
             elif opsi == "3":
                 lihat_reservasi(user)
+                clearpause()
             elif opsi == "0":
                 break
             else:
+                clears()
                 print("Opsi tidak valid")
 
 def menu_user(user):
@@ -180,6 +312,7 @@ def menu_user(user):
             clearpause()
         elif opsi == "2":
             reservasi(user)
+            clears()
         elif opsi == "3":
             print("Andaikan ini menu saldo dan pembayaran")
         elif opsi == "0":
@@ -191,9 +324,25 @@ def menu_user(user):
 
 def menu_admin(user):
     while True:
-        print("Ini adalah menu admin")
-        time.sleep(3)
-        break
+        while True:
+            print("======== MENU ADMIN ========")
+            print("1: Manajmen User")
+            print("2: Manajemen Reservasi")
+            print("0: Logout")
+            opsi = input("Pilih menu: ")
+        
+            if opsi == "1":
+                manageusers()
+                clears()
+            elif opsi == "2":
+                managereserv()
+                clears()
+            elif opsi == "0":
+                clears()
+                break
+            else:
+                clears()
+                print("Opsi tidak valid")
 
 def login():
     username = input("Masukkan username: ")
@@ -210,6 +359,10 @@ def login():
             else:
                 menu_user(user)
             return
+        
+    print("Username atau password salah.")
+    time.sleep(2)
+    clears()
     
 def main():
     while True:
@@ -220,7 +373,7 @@ def main():
         opsi = input("Pilih menu: ")
 
         if opsi == "1":
-            os.system("cls" if os.name == "nt" else "clear")
+            clears()
             login()
         elif opsi == "2":
             registrasi()
