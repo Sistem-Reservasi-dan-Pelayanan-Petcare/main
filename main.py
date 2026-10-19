@@ -126,8 +126,7 @@ def reservasi(user):
 
                 tambah_data(data, "reservations.json")
                 print("Reservasi berhasil")
-                time.sleep(2)
-                clears()
+                clearpause()
                 break
 
             elif opsi == "2":
@@ -157,8 +156,7 @@ def reservasi(user):
 
                 tambah_data(data, "reservations.json")
                 print("Reservasi berhasil")
-                time.sleep(2)
-                clears()
+                clearpause()
                 break
 
             elif opsi == "3":
