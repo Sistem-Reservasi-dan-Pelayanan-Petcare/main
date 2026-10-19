@@ -165,7 +165,7 @@ def login():
     for user in users:
         if user["username"] == username and user["password"] == password:
             print("Login berhasil")
-            identitas = ["username"]
+            identitas = ["id"]
             if user["role"] == "admin":
                 menu_admin(user)
             else:
