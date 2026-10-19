@@ -324,25 +324,24 @@ def menu_user(user):
 
 def menu_admin(user):
     while True:
-        while True:
-            print("======== MENU ADMIN ========")
-            print("1: Manajmen User")
-            print("2: Manajemen Reservasi")
-            print("0: Logout")
-            opsi = input("Pilih menu: ")
+        print("======== MENU ADMIN ========")
+        print("1: Manajmen User")
+        print("2: Manajemen Reservasi")
+        print("0: Logout")
+        opsi = input("Pilih menu: ")
         
-            if opsi == "1":
-                manageusers()
-                clears()
-            elif opsi == "2":
-                managereserv()
-                clears()
-            elif opsi == "0":
-                clears()
-                break
-            else:
-                clears()
-                print("Opsi tidak valid")
+        if opsi == "1":
+            manageusers()
+            clears()
+        elif opsi == "2":
+            managereserv()
+            clears()
+        elif opsi == "0":
+            clears()
+            break
+        else:
+            clears()
+            print("Opsi tidak valid")
 
 def login():
     username = input("Masukkan username: ")
