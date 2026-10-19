@@ -158,9 +158,6 @@ def managereserv():
                 clears()
                 break
 
-
-
-
         except ValueError:
             print("ID harus berupa angka")
             clearpause()
