@@ -141,15 +141,16 @@ def managereserv():
                 
             elif opsi == "2":
                 resid = int(input("Masukkan ID Reservasi yang ingin dibatalkan: "))
-                target = next((r for r in data if r["res_id"] == resid), None)
-                if target is None:
+                resselect = next((r for r in data if r["res_id"] == resid), None)
+                if resselect is None:
                     print("Reservasi tidak ditemukan")
                 else:
-                    confirm = input(f"Batalkan reservasi {resid} ({target['layanan']}, hewan '{target['nama']}')? (y/n): ").strip().lower()
+                    confirm = input(f"Batalkan reservasi {resid} ({resselect['layanan']}, hewan '{resselect['nama']}')? (y/n): ").strip().lower()
                 if confirm == "y":
-                    data.remove(target)
+                    data.remove(resselect)
                     writejson("reservations.json", data)
                     print("Reservasi dibatalkan")
+                    clearpause()
                 else:
                     print("Dibatalkan")
                 clearpause()
