@@ -1,1 +1,13 @@
-[]
+[
+    {
+        "user_id": 1002,
+        "layanan": "Perawatan",
+        "nama": "sigma",
+        "jenis": "kucing",
+        "berat": 20,
+        "jam": "13.00",
+        "tanggal": "13/09",
+        "harga": 100000,
+        "status": "Belum lunas"
+    }
+]

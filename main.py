@@ -32,17 +32,36 @@ def layanan():
     pelayanan.add_row(["Penitipan (Daycare)", "Rp.150k/malam"])
     print(pelayanan)
 
-def reservasi():
+def lihat_reservasi(user):
+    data = readjson("reservations.json")
+    milik_user = [reservasi for reservasi in data if reservasi.get("user_id") == user["id"]]
+    if not milik_user:
+        print("Tidak ada reservasi")
+        return
+
+    tabel = PrettyTable()
+    tabel.title = "RESERVASI"
+    tabel.field_names = ["Layanan", "Nama", "Jenis", "Berat/Malam", "Tanggal", "Jam", "Harga", "Status"]
+
+    for data in milik_user:
+        if data["layanan"] == "Perawatan":
+            tabel.add_row([data["layanan"], data["nama"], data["jenis"], f"{data['berat']} kg", data["tanggal"], data["jam"], f"Rp.{data['harga']}", data["status"]])
+        elif data["layanan"] == "Penitipan":
+            tabel.add_row([data["layanan"], data["nama"], data["jenis"], f"{data['malam']} malam", data["tanggal"], data["jam"], f"Rp.{data['harga']}", data["status"]])
+    print(tabel)
+
+def reservasi(user):
     while True:
         try:
             print("Reservasi Layanan")
             print("1: Perawatan")
             print("2: Penitipan")
+            print("3: Lihat Reservasi")
             print("0: Keluar")
             opsi = input("Pilih layanan: ")
 
             if opsi == "1":
-                nama = input("Masukkan nama: ")
+                nama = input("Masukkan nama hewan: ")
                 jenis = input("Masukkan jenis hewan: ")
                 berat = int(input("Masukkan berat badan hewan (kg bulat): "))
                 jam = input("Masukkan jam datang: ")
@@ -57,6 +76,7 @@ def reservasi():
                     harga = 100000
 
                 data = {
+                    "user_id": user["id"],
                     "layanan": "Perawatan",
                     "nama": nama,
                     "jenis": jenis,
@@ -72,7 +92,7 @@ def reservasi():
                 break
 
             elif opsi == "2":
-                nama = input("Masukkan nama: ")
+                nama = input("Masukkan nama hewan: ")
                 jenis = input("Masukkan jenis hewan: ")
                 malam = int(input("Masukkan jumlah malam penitipan: "))
                 tanggal = input("Masukkan tanggal datang (HH/BB): ")
@@ -85,6 +105,7 @@ def reservasi():
                 harga = 150000 * malam
 
                 data= {
+                    "user_id": user["id"],
                     "layanan": "Penitipan",
                     "nama": nama,
                     "jenis": jenis,
@@ -98,7 +119,9 @@ def reservasi():
                 tambah_reservasi(data)
                 print("Reservasi berhasil")
                 break
-            
+
+            elif opsi == "3":
+                lihat_reservasi(user)
             elif opsi == "0":
                 break
             else:
@@ -119,7 +142,7 @@ def menu_user(user):
             layanan()
             clears()
         elif opsi == "2":
-            reservasi()
+            reservasi(user)
             clears()
         elif opsi == "3":
             print("Andaikan ini menu saldo dan pembayaran")
@@ -142,6 +165,7 @@ def login():
     for user in users:
         if user["username"] == username and user["password"] == password:
             print("Login berhasil")
+            identitas = ["username"]
             if user["role"] == "admin":
                 menu_admin(user)
             else:
