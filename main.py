@@ -144,16 +144,17 @@ def managereserv():
                 resselect = next((r for r in data if r["res_id"] == resid), None)
                 if resselect is None:
                     print("Reservasi tidak ditemukan")
+                    clearpause()
                 else:
                     confirm = input(f"Batalkan reservasi {resid} ({resselect['layanan']}, hewan '{resselect['nama']}')? (y/n): ")
-                if confirm == "y":
-                    data.remove(resselect)
-                    writejson("reservations.json", data)
-                    print("Reservasi dibatalkan")
-                    clearpause()
-                else:
-                    print("Dibatalkan")
-                    clearpause()
+                    if confirm == "y":
+                        data.remove(resselect)
+                        writejson("reservations.json", data)
+                        print("Reservasi dibatalkan")
+                        clearpause()
+                    else:
+                        print("Reservasi tidak dibatalkan")
+                        clearpause()
 
             elif opsi == "0":
                 clears()
@@ -259,7 +260,7 @@ def reservasi(user):
                 }
 
                 tambah_data(data, "reservations.json")
-                print("Reservasi berhasil")
+                print(f"Reservasi berhasil dengan ID: {data['res_id']}")
                 clearpause()
                 break
 
@@ -290,7 +291,7 @@ def reservasi(user):
                 }
 
                 tambah_data(data, "reservations.json")
-                print("Reservasi berhasil")
+                print(f"Reservasi berhasil dengan ID: {data['res_id']}")
                 clearpause()
                 break
 
