@@ -134,8 +134,8 @@ def managereserv():
                     for r in data:
                         detail = f"{r['berat']} kg" if r["layanan"] == "Perawatan" else f"{r['malam']} malam"
                         tabel.add_row([r["res_id"], r["user_id"], r["layanan"], r["nama"],
-                           r["jenis"], detail, r["tanggal"], r["jam"],
-                           f"Rp.{r['harga']}", r["status"]])
+                        r["jenis"], detail, r["tanggal"], r["jam"],
+                        f"Rp.{r['harga']}", r["status"]])
                     print(tabel)
                 clearpause()
                 
@@ -163,10 +163,6 @@ def managereserv():
             print("ID harus berupa angka")
             clearpause()
             continue
-
-            
-            
-            
 
 def registrasi():
     users = readjson("users.json")
