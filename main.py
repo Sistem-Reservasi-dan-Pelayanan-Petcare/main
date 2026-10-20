@@ -145,7 +145,7 @@ def managereserv():
                 if resselect is None:
                     print("Reservasi tidak ditemukan")
                 else:
-                    confirm = input(f"Batalkan reservasi {resid} ({resselect['layanan']}, hewan '{resselect['nama']}')? (y/n): ").strip().lower()
+                    confirm = input(f"Batalkan reservasi {resid} ({resselect['layanan']}, hewan '{resselect['nama']}')? (y/n): ")
                 if confirm == "y":
                     data.remove(resselect)
                     writejson("reservations.json", data)
@@ -153,7 +153,7 @@ def managereserv():
                     clearpause()
                 else:
                     print("Dibatalkan")
-                clearpause()
+                    clearpause()
 
             elif opsi == "0":
                 clears()
@@ -340,9 +340,11 @@ def menu_admin(user):
         opsi = input("Pilih menu: ")
         
         if opsi == "1":
+            clears()
             manageusers()
             clears()
         elif opsi == "2":
+            clears()
             managereserv()
             clears()
         elif opsi == "0":
