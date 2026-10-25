@@ -11,6 +11,13 @@
         "username": "asep",
         "password": "asep1234",
         "role": "user",
+        "saldo": 100000000
+    },
+    {
+        "id": 1004,
+        "username": "llll",
+        "password": "lllllllllllllll",
+        "role": "user",
         "saldo": 0
     }
 ]

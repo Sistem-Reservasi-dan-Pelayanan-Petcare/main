@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "user_id": 1003,
+        "res_id": 2001,
+        "layanan": "Perawatan",
+        "nama": "aseps",
+        "jenis": "anjing",
+        "berat": 10,
+        "jam": "14.00",
+        "tanggal": "16/02",
+        "harga": 75000,
+        "status": "Belum lunas"
+    }
+]
