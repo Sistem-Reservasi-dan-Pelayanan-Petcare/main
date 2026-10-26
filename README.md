@@ -8,10 +8,10 @@
                     <li> Sabichisma Sania Rachman</li><br>
 </ol>
 
-<h3>Deskripsi & Tujuan:</h3><br>
+<h2>Deskripsi & Tujuan:</h2><br>
 Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk memudahkan pelanggan dalam melakukan reservasi layanan perawatan hewan. Sistem ini memungkinkan pengguna untuk memilih jenis layanan, menentukan jadwal, mengelola data hewan, melihat status pelayanan, serta melakukan pembayaran. Di sisi admin, sistem digunakan untuk mengelola data layanan, reservasi, jadwal antrean, status pelayanan, dan pembayaran secara lebih teratur.
 
-<h3>Flowchart:</h3><br>
+<h2>Flowchart:</h2><br>
 
 <h3>Menu Utama</h3><br>
 
@@ -22,8 +22,8 @@ Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk me
 
 <h3>Menu atau Pengguna</h3><br>
 
-<h3>Daftar Fitur per Role:</h3><br>
+<h2>Daftar Fitur per Role:</h2><br>
 coming soon
 
-<h3>Screenshot Output & Penjelasan:</h3>
+<h2>Screenshot Output & Penjelasan:</h2>
 coming soon
