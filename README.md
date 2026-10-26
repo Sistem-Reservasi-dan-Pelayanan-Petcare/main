@@ -12,7 +12,8 @@
 Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk memudahkan pelanggan dalam melakukan reservasi layanan perawatan hewan. Sistem ini memungkinkan pengguna untuk memilih jenis layanan, menentukan jadwal, mengelola data hewan, melihat status pelayanan, serta melakukan pembayaran. Di sisi admin, sistem digunakan untuk mengelola data layanan, reservasi, jadwal antrean, status pelayanan, dan pembayaran secara lebih teratur.
 
 <h3>Flowchart:</h3><br>
-coming soon
+Menu Utama
+<img width="696" height="672" alt="image" src="https://github.com/user-attachments/assets/eab17ec2-2f78-49f3-8ef1-3c8ad11d658c" />
 
 <h3>Daftar Fitur per Role:</h3><br>
 coming soon
