@@ -22,8 +22,12 @@ Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk me
 
 <h3>Menu atau Pengguna</h3><br>
 
+<img width="2312" height="1722" alt="Menu Pengguna drawio" src="https://github.com/user-attachments/assets/63e76ba3-1251-4e4c-b890-96c71be956a2" />
+
 <h2>Daftar Fitur per Role:</h2><br>
-coming soon
+Daftar Fitur Admin<br>
+
+Dafatr Fitur Pengguna<br>
 
 <h2>Screenshot Output & Penjelasan:</h2>
 coming soon
