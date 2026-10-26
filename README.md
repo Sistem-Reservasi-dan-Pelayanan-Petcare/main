@@ -1,4 +1,6 @@
-# <br>Judul/Tema        : Sistem Reservasi dan Pelayanan Petcare<br>
+# Sistem Reservasi dan Pelayanan Petcare<br>
+**Praktikum DDP**
+**Kelas             : A**<br>
 **Anggota & Peran   :**<br>
 
 <ol>
@@ -13,21 +15,24 @@ Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk me
 
 <h2>Flowchart:</h2><br>
 
-<h3>Menu Utama</h3><br>
+**Menu Utama**<br>
+
 
 <img width="696" height="672" alt="image" src="https://github.com/user-attachments/assets/eab17ec2-2f78-49f3-8ef1-3c8ad11d658c" />
 
 <h3>Menu Registrasi</h3><br>
 <img width="403" height="667" alt="image" src="https://github.com/user-attachments/assets/33cab28b-facf-4bae-aa5b-35735774d24b" />
 
-<h3>Menu atau Pengguna</h3><br>
+**Menu atau Pengguna**<br>
+
 
 <img width="2312" height="1722" alt="Menu Pengguna drawio" src="https://github.com/user-attachments/assets/63e76ba3-1251-4e4c-b890-96c71be956a2" />
 
 <h2>Daftar Fitur per Role:</h2><br>
-Daftar Fitur Admin<br>
 
-Dafatr Fitur Pengguna<br>
+**Daftar Fitur Admin**
+
+**Daftar Fitur Pengguna**<br>
 
 <h2>Screenshot Output & Penjelasan:</h2>
 coming soon
