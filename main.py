@@ -3,6 +3,7 @@ import os
 import pwinput
 from prettytable import PrettyTable
 import time
+from datetime import datetime
 
 users = []
 
@@ -21,6 +22,32 @@ def input_angka(pesan):
             print("Harus lebih dari 0.")
         except ValueError:
             print("Masukkan angka yang valid.")
+            
+def input_teks(pesan):
+    while True:
+        teks = input(pesan).strip()
+        if teks:
+            return teks
+        print("Input tidak boleh kosong.")
+
+def input_tanggal(pesan):
+    while True:
+        teks = input(pesan).strip()
+        try:
+            tgl = datetime.strptime(f"{teks}/{datetime.now().year}", "%d/%m/%Y")
+            return tgl.strftime("%d/%m")
+        except ValueError:
+            print("Tanggal tidak valid. Contoh: 05/03")
+
+def input_jam(pesan):
+    while True:
+        teks = input(pesan).strip()
+        try:
+            jam = datetime.strptime(teks, "%H:%M")
+            return jam.strftime("%H:%M")
+        except ValueError:
+            print("Jam tidak valid. Contoh: 09:30")
+
 
 def readjson(jsfile):
     try:
@@ -244,11 +271,11 @@ def reservasi(user):
             opsi = input("Pilih layanan: ")
 
             if opsi == "1":
-                nama = input("Masukkan nama hewan: ")
-                jenis = input("Masukkan jenis hewan: ")
+                nama = input_teks("Masukkan nama hewan: ")
+                jenis = input_teks("Masukkan jenis hewan: ")
                 berat = input_angka("Masukkan berat badan hewan (kg bulat): ")
-                jam = input("Masukkan jam datang: ")
-                tanggal = input("Masukkan tanggal datang (DD/MM): ")
+                jam = input_jam("Masukkan jam datang: ")
+                tanggal = input_tanggal("Masukkan tanggal datang (DD/MM): ")
 
                 if berat <= 0:
                     print("Berat tidak boleh 0")
@@ -277,11 +304,11 @@ def reservasi(user):
                 break
 
             elif opsi == "2":
-                nama = input("Masukkan nama hewan: ")
-                jenis = input("Masukkan jenis hewan: ")
+                nama = input_teks("Masukkan nama hewan: ")
+                jenis = input_teks("Masukkan jenis hewan: ")
                 malam = input_angka("Masukkan jumlah malam penitipan: ")
-                tanggal = input("Masukkan tanggal datang (DD/MM): ")
-                jam = input("Masukkan jam datang (JJ:MM): ")
+                tanggal = input_tanggal("Masukkan tanggal datang (DD/MM): ")
+                jam = input_jam("Masukkan jam datang (JJ:MM): ")
 
                 if malam <= 0: 
                     print("Jumlah malam harus lebih dari 0")
