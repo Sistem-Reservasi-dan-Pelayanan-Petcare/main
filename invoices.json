@@ -1,9 +1,18 @@
 [
-  {
+    {
         "invoice_id": 3001,
         "res_id": 2002,
         "user_id": 1003,
         "nama": "ayam jago",
+        "layanan": "Perawatan",
+        "harga": 75000,
+        "status": "Lunas"
+    },
+    {
+        "invoice_id": 3002,
+        "res_id": 2001,
+        "user_id": 1003,
+        "nama": "aseps",
         "layanan": "Perawatan",
         "harga": 75000,
         "status": "Lunas"

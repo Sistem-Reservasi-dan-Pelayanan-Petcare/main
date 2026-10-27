@@ -413,9 +413,10 @@ def emoney(user):
                 print("Total Bayar:", f"Rp.{invoice['harga']}")
                 print("Status     : LUNAS")
                 print("Sisa Saldo :", f"Rp.{user['saldo']}")
-                print("terimakasih, selamat datang kembali")
+                print("Terimakasih, selamat datang kembali")
                 print("=" * 35)
                 clearpause()
+                break
 
             else:
                 print("Saldo tidak cukup!")
