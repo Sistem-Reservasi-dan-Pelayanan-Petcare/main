@@ -28,6 +28,10 @@ Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk me
 
 <img width="2312" height="1722" alt="Menu Pengguna drawio" src="https://github.com/user-attachments/assets/63e76ba3-1251-4e4c-b890-96c71be956a2" />
 
+**flowchart admin**<br>
+<img width="1600" height="758" alt="WhatsApp Image 2026-10-27 at 12 05 17" src="https://github.com/user-attachments/assets/400f0ac7-1667-4dc2-9e77-8f962890945d" />
+
+
 <h2>Daftar Fitur per Role:</h2><br>
 
 **Daftar Fitur Admin**
