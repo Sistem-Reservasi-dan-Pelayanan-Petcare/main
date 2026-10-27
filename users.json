@@ -19,5 +19,12 @@
         "password": "lllllllllllllll",
         "role": "user",
         "saldo": 0
+    },
+    {
+        "id": 1005,
+        "username": "mas amba",
+        "password": "ambacong",
+        "role": "user",
+        "saldo": 0
     }
 ]
