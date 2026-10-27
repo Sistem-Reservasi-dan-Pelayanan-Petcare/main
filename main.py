@@ -2,7 +2,6 @@ import json
 import os
 import pwinput
 from prettytable import PrettyTable
-from datetime import datetime
 import time
 
 users = []
@@ -22,31 +21,6 @@ def input_angka(pesan):
             print("Harus lebih dari 0.")
         except ValueError:
             print("Masukkan angka yang valid.")
-
-def input_teks(pesan):
-    while True:
-        teks = input(pesan).strip()
-        if teks:
-            return teks
-        print("Input tidak boleh kosong.")
-
-def input_tanggal(pesan):
-    while True:
-        teks = input(pesan).strip()
-        try:
-            tgl = datetime.strptime(f"{teks}/{datetime.now().year}", "%d/%m/%Y")
-            return tgl.strftime("%d/%m")
-        except ValueError:
-            print("Tanggal tidak valid. Contoh: 05/03")
-
-def input_jam(pesan):
-    while True:
-        teks = input(pesan).strip()
-        try:
-            jam = datetime.strptime(teks, "%H:%M")
-            return jam.strftime("%H:%M")
-        except ValueError:
-            print("Jam tidak valid. Contoh: 09:30")
 
 def readjson(jsfile):
     with open (jsfile, "r", encoding="utf-8") as f:
@@ -115,7 +89,6 @@ def manageusers():
                 uid = int(input("Masukkan ID user yang ingin dihapus: "))
             except ValueError:
                 print("ID harus berupa angka")
-                clearpause()
                 continue
 
             userdel = next((u for u in data if u["id"] == uid and u["role"] == "user"), None)
@@ -259,11 +232,11 @@ def reservasi(user):
             opsi = input("Pilih layanan: ")
 
             if opsi == "1":
-                nama = input_teks("Masukkan nama hewan: ")
-                jenis = input_teks("Masukkan jenis hewan: ")
+                nama = input("Masukkan nama hewan: ")
+                jenis = input("Masukkan jenis hewan: ")
                 berat = input_angka("Masukkan berat badan hewan (kg bulat): ")
-                jam = input_jam("Masukkan jam datang: ")
-                tanggal = input_tanggal("Masukkan tanggal datang (DD/MM): ")
+                jam = input("Masukkan jam datang: ")
+                tanggal = input("Masukkan tanggal datang (DD/MM): ")
 
                 if berat <= 0:
                     print("Berat tidak boleh 0")
@@ -292,11 +265,11 @@ def reservasi(user):
                 break
 
             elif opsi == "2":
-                nama = input_teks("Masukkan nama hewan: ")
-                jenis = input_teks("Masukkan jenis hewan: ")
+                nama = input("Masukkan nama hewan: ")
+                jenis = input("Masukkan jenis hewan: ")
                 malam = input_angka("Masukkan jumlah malam penitipan: ")
-                tanggal = input_tanggal("Masukkan tanggal datang (DD/MM): ")
-                jam = input_jam("Masukkan jam datang (JJ:MM): ")
+                tanggal = input("Masukkan tanggal datang (DD/MM): ")
+                jam = input("Masukkan jam datang (JJ:MM): ")
 
                 if malam <= 0: 
                     print("Jumlah malam harus lebih dari 0")
@@ -331,6 +304,112 @@ def reservasi(user):
                 clears()
                 print("Opsi tidak valid")
 
+def emoney(user):
+    while True:
+        print("\n=== E-MONEY ===")
+        print("Saldo:", f"Rp.{user['saldo']}")
+        print("1. Top Up")
+        print("2. Bayar Reservasi")
+        print("0. Kembali")
+
+        pilih = input("Pilih: ")
+
+        if pilih == "1":
+            jumlah = input_angka("Jumlah Top Up: Rp.")
+            user["saldo"] += jumlah
+
+            users = readjson("users.json")
+            for u in users:
+                if u["id"] == user["id"]:
+                    u["saldo"] = user["saldo"]
+
+            writejson("users.json", users)
+            print("Top Up berhasil!")
+            print("Saldo:", f"Rp.{user['saldo']}")
+
+        elif pilih == "2":
+            data = readjson("reservations.json")
+
+            milik_user = [
+                r for r in data
+                if r["user_id"] == user["id"]
+                and r["status"] == "Belum lunas"
+            ]
+
+            if not milik_user:
+                print("Tidak ada reservasi yang belum dibayar.")
+                continue
+
+            print("\n=== RESERVASI BELUM LUNAS ===")
+            for r in milik_user:
+                print(
+                    f"ID: {r['res_id']} | "
+                    f"{r['layanan']} | "
+                    f"{r['nama']} | "
+                    f"Rp.{r['harga']}"
+                )
+
+            try:
+                resid = int(input("Masukkan ID Reservasi: "))
+            except ValueError:
+                print("ID harus berupa angka!")
+                continue
+
+            reservasi = next(
+                (r for r in milik_user if r["res_id"] == resid),
+                None
+            )
+            if reservasi is None:
+                print("Reservasi tidak ditemukan!")
+                continue
+            harga = reservasi["harga"]
+            if user["saldo"] >= harga:
+                user["saldo"] -= harga
+                reservasi["status"] = "Lunas"
+                users = readjson("users.json")
+                for u in users:
+                    if u["id"] == user["id"]:
+                        u["saldo"] = user["saldo"]
+                writejson("users.json", users)
+                writejson("reservations.json", data)
+                try:
+                    invoices = readjson("invoices.json")
+                except FileNotFoundError:
+                    invoices = []
+
+                invoice = {
+                    "invoice_id": len(invoices) + 1,
+                    "res_id": reservasi["res_id"],
+                    "user_id": user["id"],
+                    "nama": reservasi["nama"],
+                    "layanan": reservasi["layanan"],
+                    "harga": harga,
+                    "status": "Lunas"
+                }
+                invoices.append(invoice)
+                writejson("invoices.json", invoices)
+                print("\n" + "=" * 35)
+                print("          INVOICE PETCARE")
+                print("=" * 35)
+                print("ID Invoice :", invoice["invoice_id"])
+                print("ID Reservasi:", invoice["res_id"])
+                print("Nama Hewan :", invoice["nama"])
+                print("Layanan    :", invoice["layanan"])
+                print("Total Bayar:", f"Rp.{invoice['harga']}")
+                print("Status     : LUNAS")
+                print("Sisa Saldo :", f"Rp.{user['saldo']}")
+                print("terimakasih, selamat datang kembali")
+                print("=" * 35)
+
+            else:
+                print("Saldo tidak cukup!")
+
+        elif pilih == "0":
+            break
+
+        else:
+            print("Pilihan tidak valid!")
+
 def menu_user(user):
     while True:
         print("======== MENU USER ========")
@@ -347,7 +426,8 @@ def menu_user(user):
             reservasi(user)
             clears()
         elif opsi == "3":
-            print("Andaikan ini menu saldo dan pembayaran")
+            emoney(user)
+            clears()
         elif opsi == "0":
             clears()
             break
