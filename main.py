@@ -365,7 +365,7 @@ def emoney(user):
         print("2. Bayar Reservasi")
         print("0. Kembali")
 
-        pilih = input("Pilih: ")
+        pilih = input("Opsi: ")
 
         if pilih == "1":
             topup(user)
@@ -393,11 +393,7 @@ def emoney(user):
                     f"Rp.{r['harga']}"
                 )
 
-            try:
-                resid = int(input("Masukkan ID Reservasi: "))
-            except ValueError:
-                print("ID harus berupa angka!")
-                continue
+                resid = input_angka("Masukkan ID Reservasi: ")
 
             res = next(
                 (r for r in milik_user if r["res_id"] == resid),
