@@ -1,1 +1,11 @@
-[]
+[
+  {
+        "invoice_id": 1,
+        "res_id": 2002,
+        "user_id": 1003,
+        "nama": "ayam jago",
+        "layanan": "Perawatan",
+        "harga": 75000,
+        "status": "Lunas"
+    }
+]
