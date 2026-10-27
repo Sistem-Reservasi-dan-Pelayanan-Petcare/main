@@ -23,9 +23,11 @@ def input_angka(pesan):
             print("Masukkan angka yang valid.")
 
 def readjson(jsfile):
-    with open (jsfile, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    return data
+    try:
+        with open(jsfile, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
 
 def writejson(jsfile, data):
     with open(jsfile, "w", encoding="utf-8") as f:
@@ -89,6 +91,7 @@ def manageusers():
                 uid = int(input("Masukkan ID user yang ingin dihapus: "))
             except ValueError:
                 print("ID harus berupa angka")
+                clearpause()
                 continue
 
             userdel = next((u for u in data if u["id"] == uid and u["role"] == "user"), None)
@@ -148,6 +151,12 @@ def managereserv():
                 else:
                     confirm = input(f"Batalkan reservasi {resid} ({resselect['layanan']}, hewan '{resselect['nama']}')? (y/n): ")
                     if confirm == "y":
+                        if resselect["status"] == "Lunas":
+                            users = readjson("users.json")
+                            for u in users:
+                                if u["id"] == resselect["user_id"]:
+                                    u["saldo"] += resselect["harga"]
+                            writejson("users.json", users)
                         data.remove(resselect)
                         writejson("reservations.json", data)
                         print("Reservasi dibatalkan")
@@ -159,6 +168,9 @@ def managereserv():
             elif opsi == "0":
                 clears()
                 break
+            else:
+                print("Opsi tidak valid")
+                clearpause()
 
         except ValueError:
             print("ID harus berupa angka")
@@ -304,6 +316,20 @@ def reservasi(user):
                 clears()
                 print("Opsi tidak valid")
 
+def topup(user):
+    jumlah = input_angka("Jumlah Top Up: Rp.")
+    user["saldo"] += jumlah
+    
+    users = readjson("users.json")
+    for u in users:
+        if u["id"] == user["id"]:
+            u["saldo"] = user["saldo"]
+    
+    writejson("users.json", users)
+    print("Top Up berhasil!")
+    print("Saldo:", f"Rp.{user['saldo']}")
+    clearpause()
+
 def emoney(user):
     while True:
         print("\n=== E-MONEY ===")
@@ -315,17 +341,7 @@ def emoney(user):
         pilih = input("Pilih: ")
 
         if pilih == "1":
-            jumlah = input_angka("Jumlah Top Up: Rp.")
-            user["saldo"] += jumlah
-
-            users = readjson("users.json")
-            for u in users:
-                if u["id"] == user["id"]:
-                    u["saldo"] = user["saldo"]
-
-            writejson("users.json", users)
-            print("Top Up berhasil!")
-            print("Saldo:", f"Rp.{user['saldo']}")
+            topup(user)
 
         elif pilih == "2":
             data = readjson("reservations.json")
@@ -338,6 +354,7 @@ def emoney(user):
 
             if not milik_user:
                 print("Tidak ada reservasi yang belum dibayar.")
+                clearpause()
                 continue
 
             print("\n=== RESERVASI BELUM LUNAS ===")
@@ -355,34 +372,32 @@ def emoney(user):
                 print("ID harus berupa angka!")
                 continue
 
-            reservasi = next(
+            res = next(
                 (r for r in milik_user if r["res_id"] == resid),
                 None
             )
-            if reservasi is None:
-                print("Reservasi tidak ditemukan!")
+            if res is None:
+                print("Reservasi tidak ditemukan")
+                clearpause()
                 continue
-            harga = reservasi["harga"]
+            harga = res["harga"]
             if user["saldo"] >= harga:
                 user["saldo"] -= harga
-                reservasi["status"] = "Lunas"
+                res["status"] = "Lunas"
                 users = readjson("users.json")
                 for u in users:
                     if u["id"] == user["id"]:
                         u["saldo"] = user["saldo"]
                 writejson("users.json", users)
                 writejson("reservations.json", data)
-                try:
-                    invoices = readjson("invoices.json")
-                except FileNotFoundError:
-                    invoices = []
+                invoices = readjson("invoices.json")
 
                 invoice = {
-                    "invoice_id": len(invoices) + 1,
-                    "res_id": reservasi["res_id"],
+                    "invoice_id": max((i["invoice_id"] for i in invoices), default=3000) + 1,
+                    "res_id": res["res_id"],
                     "user_id": user["id"],
-                    "nama": reservasi["nama"],
-                    "layanan": reservasi["layanan"],
+                    "nama": res["nama"],
+                    "layanan": res["layanan"],
                     "harga": harga,
                     "status": "Lunas"
                 }
@@ -400,9 +415,15 @@ def emoney(user):
                 print("Sisa Saldo :", f"Rp.{user['saldo']}")
                 print("terimakasih, selamat datang kembali")
                 print("=" * 35)
+                clearpause()
 
             else:
                 print("Saldo tidak cukup!")
+                confirm = input("Apakah kamu ingin topup saldo? (y/n)")
+                if confirm == "y":
+                    topup(user)
+                else:
+                    continue
 
         elif pilih == "0":
             break
