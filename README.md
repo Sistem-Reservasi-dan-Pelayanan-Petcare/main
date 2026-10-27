@@ -31,8 +31,10 @@ Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk me
 <h2>Daftar Fitur per Role:</h2><br>
 
 **Daftar Fitur Admin**
+admin bisa manage 
 
 **Daftar Fitur Pengguna**<br>
+pengguna bisa
 
 <h2>Screenshot Output & Penjelasan:</h2>
 coming soon
