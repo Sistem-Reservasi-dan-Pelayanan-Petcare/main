@@ -4,27 +4,31 @@
         "username": "admin",
         "password": "admin123",
         "role": "admin",
-        "saldo": 0
+        "saldo": 0,
+        "status": "aktif"
     },
     {
         "id": 1003,
         "username": "asep",
         "password": "asep1234",
         "role": "user",
-        "saldo": 100025000
+        "saldo": 200000,
+        "status": "aktif"
     },
     {
         "id": 1004,
         "username": "llll",
         "password": "lllllllllllllll",
         "role": "user",
-        "saldo": 0
+        "saldo": 10000000,
+        "status": "aktif"
     },
     {
         "id": 1005,
         "username": "mas amba",
         "password": "ambacong",
         "role": "user",
-        "saldo": 0
+        "saldo": 1000000,
+        "status": "aktif"
     }
 ]

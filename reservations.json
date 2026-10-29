@@ -10,5 +10,65 @@
         "tanggal": "16/02",
         "harga": 75000,
         "status": "Lunas"
+    },
+    {
+        "user_id": 1003,
+        "res_id": 2002,
+        "layanan": "Perawatan",
+        "nama": "asep",
+        "jenis": "asep",
+        "berat": 10,
+        "jam": "13:00",
+        "tanggal": "13/06",
+        "harga": 75000,
+        "status": "Belum lunas"
+    },
+    {
+        "user_id": 1003,
+        "res_id": 2003,
+        "layanan": "Penitipan",
+        "nama": "aspe",
+        "jenis": "asep",
+        "malam": 3,
+        "tanggal": "13/02",
+        "jam": "14:00",
+        "harga": 450000,
+        "status": "Lunas"
+    },
+    {
+        "user_id": 1003,
+        "res_id": 2004,
+        "layanan": "Perawatan",
+        "nama": "l",
+        "jenis": "l",
+        "berat": 100000000,
+        "jam": "09:30",
+        "tanggal": "12/12",
+        "harga": 100000,
+        "status": "Belum lunas"
+    },
+    {
+        "user_id": 1003,
+        "res_id": 2005,
+        "layanan": "Penitipan",
+        "nama": "l",
+        "jenis": "l",
+        "malam": 1,
+        "tanggal": "09/09",
+        "jam": "11:11",
+        "harga": 150000,
+        "status": "Belum lunas"
+    },
+    {
+        "user_id": 1003,
+        "res_id": 2006,
+        "layanan": "Penitipan",
+        "nama": "l",
+        "jenis": "l",
+        "malam": 2,
+        "tanggal": "09/11",
+        "jam": "09:11",
+        "harga": 300000,
+        "status": "Belum lunas"
     }
 ]

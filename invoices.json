@@ -16,5 +16,14 @@
         "layanan": "Perawatan",
         "harga": 75000,
         "status": "Lunas"
+    },
+    {
+        "invoice_id": 3003,
+        "res_id": 2003,
+        "user_id": 1003,
+        "nama": "aspe",
+        "layanan": "Penitipan",
+        "harga": 450000,
+        "status": "Lunas"
     }
 ]

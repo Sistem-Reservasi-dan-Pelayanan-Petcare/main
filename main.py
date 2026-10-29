@@ -48,6 +48,28 @@ def input_jam(pesan):
         except ValueError:
             print("Jam tidak valid. Contoh: 09:30")
 
+def tabeluser(userdata):
+    data = userdata
+    tabel = PrettyTable()
+    tabel.title = "LIST USER"
+    tabel.field_names = ["ID", "Username", "Saldo", "Status"]
+    for u in data:
+        if u["role"] == "user":
+            tabel.add_row([u["id"], u["username"], f"Rp.{u['saldo']}", u.get("status", "aktif")])
+    print(tabel)
+
+def tabelreserv(datareserv):
+    data = datareserv
+    tabel = PrettyTable()
+    tabel.title = "LIST RESERVASI"
+    tabel.field_names = ["ID", "User ID", "Layanan", "Nama", "Jenis",
+                            "Berat/Malam", "Tanggal", "Jam", "Harga", "Status"]
+    for r in data:
+        detail = f"{r['berat']} kg" if r["layanan"] == "Perawatan" else f"{r['malam']} malam"
+        tabel.add_row([r["res_id"], r["user_id"], r["layanan"], r["nama"],
+                        r["jenis"], detail, r["tanggal"], r["jam"],
+                        f"Rp.{r['harga']}", r["status"]])
+    print(tabel)
 
 def readjson(jsfile):
     try:
@@ -75,31 +97,26 @@ def manageusers():
         print("Manajemen User")
         print("1: Lihat User")
         print("2: Topup Saldo User")
-        print("3: Hapus User")
+        print("3: Nonaktifkan/Aktifkan User")
         print("0: Kembali")
         opsi = input("Pilih opsi: ")
 
         if opsi == "1":
-            tabel = PrettyTable()
-            tabel.title = "LIST USER"
-            tabel.field_names = ["ID", "Username", "Saldo"]
-            for u in data:
-                if u["role"] == "user":
-                    tabel.add_row([u["id"], u["username"], f"Rp.{u['saldo']}"])
-            print(tabel)
+            tabeluser(data)
             clearpause()
 
         elif opsi == "2":
+            tabeluser(data)
             try:
                 uid = int(input("Masukkan ID User: "))
-                jumlah = int(input("Masukkan jumlah topup: "))
+                jumlah = int(input("Masukkan jumlah topup: Rp."))
             except ValueError:
                 print("Input harus berupa angka")
                 clearpause()
                 continue
 
-            if jumlah <=0:
-                print("Jumlah harus lebih dari 0")
+            if jumlah < 10000:
+                print("Minimal topup harus Rp.10000")
                 clearpause()
                 continue
 
@@ -114,29 +131,28 @@ def manageusers():
             clearpause()
 
         elif opsi == "3":
+            tabeluser(data)
             try:
-                uid = int(input("Masukkan ID user yang ingin dihapus: "))
+                uid = int(input("Masukkan ID user yang ingin dinonaktifkan: "))
             except ValueError:
                 print("ID harus berupa angka")
                 clearpause()
                 continue
 
-            userdel = next((u for u in data if u["id"] == uid and u["role"] == "user"), None)
-            if userdel is None:
+            target = next((u for u in data if u["id"] == uid and u["role"] == "user"), None)
+            if target is None:
                 print("User tidak ditemukan")
             else:
-                confirm = input(f"Hapus user {userdel['username']}? (y/n): ")
-                if confirm == "y":
-                    data.remove(userdel)
+                current = target.get("status", "aktif")
+                new = "nonaktif" if current == "aktif" else "aktif"
+                confirm = input(f"Ubah status {target['username']} dari {current} ke {new}? (y/n): ")
+                if confirm.strip().lower() == "y":
+                    target["status"] = new
                     writejson("users.json", data)
-                    reservations = readjson("reservations.json")
-                    reservations = [r for r in reservations if r.get("user_id") != uid]
-                    writejson("reservations.json", reservations)
-                    print("User berhasil dihapus")
+                    print(f"Status {target['username']} sekarang {new}")
                 else:
                     print("Dibatalkan")
             clearpause()
-
         elif opsi == "0":
             break
         else:
@@ -157,19 +173,11 @@ def managereserv():
                 if not data:
                     print("Belum ada reservasi.")
                 else:
-                    tabel = PrettyTable()
-                    tabel.title = "LIST RESERVASI"
-                    tabel.field_names = ["ID", "User ID", "Layanan", "Nama", "Jenis",
-                        "Berat/Malam", "Tanggal", "Jam", "Harga", "Status"]
-                    for r in data:
-                        detail = f"{r['berat']} kg" if r["layanan"] == "Perawatan" else f"{r['malam']} malam"
-                        tabel.add_row([r["res_id"], r["user_id"], r["layanan"], r["nama"],
-                        r["jenis"], detail, r["tanggal"], r["jam"],
-                        f"Rp.{r['harga']}", r["status"]])
-                    print(tabel)
+                    tabelreserv(data)
                 clearpause()
                 
             elif opsi == "2":
+                tabelreserv(data)
                 resid = int(input("Masukkan ID Reservasi yang ingin dibatalkan: "))
                 resselect = next((r for r in data if r["res_id"] == resid), None)
                 if resselect is None:
@@ -227,7 +235,8 @@ def registrasi():
         "username": usn,
         "password": psw,
         "role": "user",
-        "saldo": 0
+        "saldo": 0,
+        "status": "aktif"
     }
 
     tambah_data(data, "users.json")
@@ -350,7 +359,10 @@ def topup(user):
     users = readjson("users.json")
     for u in users:
         if u["id"] == user["id"]:
-            u["saldo"] = user["saldo"]
+            if jumlah < 10000:
+                print("Minimal topup harus Rp.10000")
+            else:
+                u["saldo"] = user["saldo"]
     
     writejson("users.json", users)
     print("Top Up berhasil!")
@@ -510,6 +522,11 @@ def login():
     users = readjson("users.json")
     for user in users:
         if user["username"] == username and user["password"] == password:
+            if user.get("status", "aktif") != "aktif":
+                print("Akun kamu dinonaktifkan. Silakan hubungi admin.")
+                time.sleep(2)
+                clears()
+                return
             print("Login berhasil")
             time.sleep(2)
             clears()
