@@ -70,5 +70,53 @@
         "jam": "09:11",
         "harga": 300000,
         "status": "Belum lunas"
+    },
+    {
+        "user_id": 1005,
+        "res_id": 2007,
+        "layanan": "Perawatan",
+        "nama": "tes",
+        "jenis": "kucing",
+        "berat": 30,
+        "jam": "14:00",
+        "tanggal": "17/03",
+        "harga": 100000,
+        "status": "Lunas"
+    },
+    {
+        "user_id": 1005,
+        "res_id": 2008,
+        "layanan": "Perawatan",
+        "nama": "tes",
+        "jenis": "anjing",
+        "berat": 50,
+        "jam": "15:00",
+        "tanggal": "15/01",
+        "harga": 100000,
+        "status": "Lunas"
+    },
+    {
+        "user_id": 1005,
+        "res_id": 2009,
+        "layanan": "Perawatan",
+        "nama": "hjf",
+        "jenis": "kucing",
+        "berat": 40,
+        "jam": "19:00",
+        "tanggal": "14/06",
+        "harga": 100000,
+        "status": "Lunas"
+    },
+    {
+        "user_id": 1005,
+        "res_id": 2010,
+        "layanan": "Perawatan",
+        "nama": "swfjbgh",
+        "jenis": "kucing",
+        "berat": 50,
+        "jam": "20:00",
+        "tanggal": "15/09",
+        "harga": 100000,
+        "status": "Belum lunas"
     }
 ]

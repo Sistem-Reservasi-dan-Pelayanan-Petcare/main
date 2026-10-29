@@ -28,7 +28,7 @@
         "username": "mas amba",
         "password": "ambacong",
         "role": "user",
-        "saldo": 1000000,
+        "saldo": 0,
         "status": "aktif"
     }
 ]

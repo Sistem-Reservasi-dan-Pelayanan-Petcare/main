@@ -6,6 +6,7 @@ import time
 from datetime import datetime
 
 users = []
+allowedanimals = ["kucing", "anjing"]
 
 def clearpause():
     input("\nKlik Enter untuk kembali ke menu...")
@@ -13,13 +14,16 @@ def clearpause():
 def clears():
     os.system("cls" if os.name == "nt" else "clear")
 
-def input_angka(pesan):
+def input_angka(pesan, maks=None):
     while True:
         try:
             nilai = int(input(pesan))
-            if nilai > 0:
+            if nilai <= 0:
+                print("Harus lebih dari 0.")
+            elif maks is not None and nilai > maks:
+                print(f"Maksimal {maks}kg.")
+            else:
                 return nilai
-            print("Harus lebih dari 0.")
         except ValueError:
             print("Masukkan angka yang valid.")
             
@@ -47,6 +51,13 @@ def input_jam(pesan):
             return jam.strftime("%H:%M")
         except ValueError:
             print("Jam tidak valid. Contoh: 09:30")
+
+def input_hewan(pesan):
+    while True:
+        teks = input(pesan).strip().lower()
+        if teks in allowedanimals:
+            return teks
+        print(f"Hewan tidak diterima. Hanya boleh: {', '.join(allowedanimals)}")
 
 def tabeluser(userdata):
     data = userdata
@@ -201,7 +212,6 @@ def managereserv():
                         clearpause()
 
             elif opsi == "0":
-                clears()
                 break
             else:
                 print("Opsi tidak valid")
@@ -281,15 +291,12 @@ def reservasi(user):
 
             if opsi == "1":
                 nama = input_teks("Masukkan nama hewan: ")
-                jenis = input_teks("Masukkan jenis hewan: ")
-                berat = input_angka("Masukkan berat badan hewan (kg bulat): ")
+                jenis = input_hewan("Masukkan jenis hewan (kucing/anjing): ")
+                berat = input_angka("Masukkan berat badan hewan (kg bulat, maks: 120): ", maks=120)
                 jam = input_jam("Masukkan jam datang: ")
                 tanggal = input_tanggal("Masukkan tanggal datang (DD/MM): ")
 
-                if berat <= 0:
-                    print("Berat tidak boleh 0")
-                    continue
-                elif berat <= 10:
+                if berat <= 10:
                     harga = 75000
                 else:
                     harga = 100000
@@ -314,14 +321,10 @@ def reservasi(user):
 
             elif opsi == "2":
                 nama = input_teks("Masukkan nama hewan: ")
-                jenis = input_teks("Masukkan jenis hewan: ")
+                jenis = input_hewan("Masukkan jenis hewan (kucing/anjing): ")
                 malam = input_angka("Masukkan jumlah malam penitipan: ")
                 tanggal = input_tanggal("Masukkan tanggal datang (DD/MM): ")
                 jam = input_jam("Masukkan jam datang (JJ:MM): ")
-
-                if malam <= 0: 
-                    print("Jumlah malam harus lebih dari 0")
-                    continue
 
                 harga = 150000 * malam
 
@@ -353,17 +356,29 @@ def reservasi(user):
                 print("Opsi tidak valid")
 
 def topup(user):
-    jumlah = input_angka("Jumlah Top Up: Rp.")
+    print("======== LIST NOMINAL TOPUP ========")
+    print("1: Rp.200.000")
+    print("2: Rp.100.000")
+    print("3: Rp.50.000")
+    print("4: Rp.20.000")
+    opsi = input("Pilih jumlah topup: ")
+
+    if opsi == "1":
+        jumlah = 200000
+    elif opsi == "2":
+        jumlah = 100000
+    elif opsi == "3":
+        jumlah = 50000
+    elif opsi == "3":
+        jumlah = 20000
+    else:
+        print("Opsi Invalid")
+
     user["saldo"] += jumlah
-    
     users = readjson("users.json")
     for u in users:
         if u["id"] == user["id"]:
-            if jumlah < 10000:
-                print("Minimal topup harus Rp.10000")
-            else:
-                u["saldo"] = user["saldo"]
-    
+            u["saldo"] = user["saldo"]
     writejson("users.json", users)
     print("Top Up berhasil!")
     print("Saldo:", f"Rp.{user['saldo']}")
@@ -405,7 +420,7 @@ def emoney(user):
                     f"Rp.{r['harga']}"
                 )
 
-                resid = input_angka("Masukkan ID Reservasi: ")
+            resid = input_angka("Masukkan ID Reservasi: ")
 
             res = next(
                 (r for r in milik_user if r["res_id"] == resid),
@@ -447,7 +462,6 @@ def emoney(user):
                 print("Layanan    :", invoice["layanan"])
                 print("Total Bayar:", f"Rp.{invoice['harga']}")
                 print("Status     : LUNAS")
-                print("Sisa Saldo :", f"Rp.{user['saldo']}")
                 print("Terimakasih, selamat datang kembali")
                 print("=" * 35)
                 clearpause()
@@ -459,6 +473,7 @@ def emoney(user):
                 if confirm == "y":
                     topup(user)
                 else:
+                    clears()
                     continue
 
         elif pilih == "0":
@@ -480,9 +495,11 @@ def menu_user(user):
             layanan()
             clearpause()
         elif opsi == "2":
+            clears()
             reservasi(user)
             clears()
         elif opsi == "3":
+            clears()
             emoney(user)
             clears()
         elif opsi == "0":

@@ -25,5 +25,32 @@
         "layanan": "Penitipan",
         "harga": 450000,
         "status": "Lunas"
+    },
+    {
+        "invoice_id": 3004,
+        "res_id": 2007,
+        "user_id": 1005,
+        "nama": "tes",
+        "layanan": "Perawatan",
+        "harga": 100000,
+        "status": "Lunas"
+    },
+    {
+        "invoice_id": 3005,
+        "res_id": 2008,
+        "user_id": 1005,
+        "nama": "tes",
+        "layanan": "Perawatan",
+        "harga": 100000,
+        "status": "Lunas"
+    },
+    {
+        "invoice_id": 3006,
+        "res_id": 2009,
+        "user_id": 1005,
+        "nama": "hjf",
+        "layanan": "Perawatan",
+        "harga": 100000,
+        "status": "Lunas"
     }
 ]
