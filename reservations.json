@@ -118,5 +118,17 @@
         "tanggal": "15/09",
         "harga": 100000,
         "status": "Belum lunas"
+    },
+    {
+        "user_id": 1003,
+        "res_id": 2011,
+        "layanan": "Perawatan",
+        "nama": "tes",
+        "jenis": "kucing",
+        "berat": 70,
+        "jam": "14:00",
+        "tanggal": "17/11",
+        "harga": 100000,
+        "status": "Belum lunas"
     }
 ]
