@@ -267,7 +267,7 @@ def reservasi(user):
                 nama = input_teks("Masukkan nama hewan: ")
                 jenis = input_hewan("Masukkan jenis hewan (kucing/anjing): ")
                 berat = input_angka("Masukkan berat badan hewan (kg bulat, maks: 120): ", maks=120)
-                jam = input_jam("Masukkan jam datang: ")
+                jam = input_jam("Masukkan jam datang (JJ:MM): ")
                 tanggal = input_tanggal("Masukkan tanggal datang (DD/MM): ")
 
                 if berat <= 10:
@@ -379,6 +379,7 @@ def emoney(user):
         pilih = input("Opsi: ")
 
         if pilih == "1":
+            clears()
             topup(user)
 
         elif pilih == "2":
