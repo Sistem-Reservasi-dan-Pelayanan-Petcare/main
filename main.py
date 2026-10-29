@@ -373,14 +373,16 @@ def topup(user):
         jumlah = 20000
     else:
         print("Opsi Invalid")
-        return
-
-    password_input = pwinput.pwinput("Masukkan password: ")
-
-    if password_input != user["password"]:
-        print("Password salah, topup dibatalkan.")
         clearpause()
         return
+
+    while True:
+        password_input = pwinput.pwinput("Masukkan password: ")
+
+        if password_input != user["password"]:
+            print("Password salah")
+        else:
+            break
 
     user["saldo"] += jumlah
     users = readjson("users.json")
