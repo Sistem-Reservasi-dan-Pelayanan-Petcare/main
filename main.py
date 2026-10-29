@@ -107,8 +107,7 @@ def manageusers():
         data = readjson("users.json")
         print("Manajemen User")
         print("1: Lihat User")
-        print("2: Topup Saldo User")
-        print("3: Nonaktifkan/Aktifkan User")
+        print("2: Nonaktifkan/Aktifkan User")
         print("0: Kembali")
         opsi = input("Pilih opsi: ")
 
@@ -117,31 +116,6 @@ def manageusers():
             clearpause()
 
         elif opsi == "2":
-            tabeluser(data)
-            try:
-                uid = int(input("Masukkan ID User: "))
-                jumlah = int(input("Masukkan jumlah topup: Rp."))
-            except ValueError:
-                print("Input harus berupa angka")
-                clearpause()
-                continue
-
-            if jumlah < 10000:
-                print("Minimal topup harus Rp.10000")
-                clearpause()
-                continue
-
-            for u in data:
-                if u["id"] == uid and u["role"] == "user":
-                    u["saldo"] += jumlah
-                    writejson("users.json", data)
-                    print(f"Topup berhasil, Saldo {u['username']}: {u['saldo']}")
-                    break
-            else:
-                print("User tidak ditemukan")
-            clearpause()
-
-        elif opsi == "3":
             tabeluser(data)
             try:
                 uid = int(input("Masukkan ID user yang ingin dinonaktifkan: "))
