@@ -8,25 +8,9 @@
         "status": "aktif"
     },
     {
-        "id": 1003,
-        "username": "asep",
-        "password": "asep1234",
-        "role": "user",
-        "saldo": 450000,
-        "status": "aktif"
-    },
-    {
-        "id": 1004,
-        "username": "llll",
-        "password": "lllllllllllllll",
-        "role": "user",
-        "saldo": 10000000,
-        "status": "aktif"
-    },
-    {
-        "id": 1005,
-        "username": "mas amba",
-        "password": "ambacong",
+        "id": 1002,
+        "username": "user",
+        "password": "user1234",
         "role": "user",
         "saldo": 0,
         "status": "aktif"
