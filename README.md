@@ -79,10 +79,10 @@ Jika memilih menu "Penitipan' maka sistem akan menampilkan: <br>
 <img width="566" height="382" alt="image" src="https://github.com/user-attachments/assets/f6b3755a-300e-459c-98e3-380a26e230ca" />
 
 Pada menu "Saldo & Pembayaran" berfungsi untuk melakukan top up saldo dan melakukan pembayaran.<br>
-Jika memilih top up maka akan seperti di bawah ini:
+Jika memilih top up maka akan seperti di bawah ini:<br>
 
 <img width="657" height="420" alt="image" src="https://github.com/user-attachments/assets/7a22144d-1d60-4e57-89cd-24636bc2ed82" />
-Jika memilih pembayaran atau bayar reservasi
+Jika memilih pembayaran atau bayar reservasi<br>
 
 <img width="344" height="422" alt="image" src="https://github.com/user-attachments/assets/f8318fc2-50d6-4e2e-b768-d0f3d3530931" />
 
