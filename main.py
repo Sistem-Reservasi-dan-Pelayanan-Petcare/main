@@ -5,15 +5,18 @@ from prettytable import PrettyTable
 import time
 from datetime import datetime
 
+# variabel untuk mengfixkan hal yang diperbolehkan
 users = []
 allowedanimals = ["kucing", "anjing"]
 
+# cls/clear (pause sama langsung)
 def clearpause():
     input("\nKlik Enter untuk kembali ke menu...")
     os.system("cls" if os.name == "nt" else "clear")
 def clears():
     os.system("cls" if os.name == "nt" else "clear")
 
+# error handling input angka, teks, tanggal, jam, sama hewan
 def input_angka(pesan, maks=None):
     while True:
         try:
@@ -59,6 +62,7 @@ def input_hewan(pesan):
             return teks
         print(f"Hewan tidak diterima. Hanya boleh: {', '.join(allowedanimals)}")
 
+# tabel user
 def tabeluser(userdata):
     data = userdata
     tabel = PrettyTable()
@@ -69,6 +73,7 @@ def tabeluser(userdata):
             tabel.add_row([u["id"], u["username"], f"Rp.{u['saldo']}", u.get("status", "aktif")])
     print(tabel)
 
+# tabel semua reservasi
 def tabelreserv(datareserv):
     data = datareserv
     tabel = PrettyTable()
@@ -82,6 +87,7 @@ def tabelreserv(datareserv):
                         f"Rp.{r['harga']}", r["status"]])
     print(tabel)
 
+# membaca dan menulis json
 def readjson(jsfile):
     try:
         with open(jsfile, "r", encoding="utf-8") as f:
@@ -93,15 +99,18 @@ def writejson(jsfile, data):
     with open(jsfile, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
+# tambah data ke json
 def tambah_data(data_baru, jsfile):
     data = readjson(jsfile)
     data.append(data_baru)
     writejson(jsfile, data)
 
+# nambah id reservasi baru
 def res_id_new():
     data = readjson("reservations.json")
     return max((r["res_id"] for r in data), default=2000) + 1
 
+# manajemen user
 def manageusers():
     while True:
         data = readjson("users.json")
@@ -111,10 +120,12 @@ def manageusers():
         print("0: Kembali")
         opsi = input("Pilih opsi: ")
 
+        # list tabel
         if opsi == "1":
             tabeluser(data)
             clearpause()
 
+        # nonaktifkan akun
         elif opsi == "2":
             tabeluser(data)
             try:
@@ -138,12 +149,14 @@ def manageusers():
                 else:
                     print("Dibatalkan")
             clearpause()
+        # keluar
         elif opsi == "0":
             break
         else:
             clears()
             print("Opsi tidak valid")
 
+# manajemen reservasi
 def managereserv():
     while True:
         try:
@@ -154,13 +167,14 @@ def managereserv():
             print("0: Keluar")
             opsi = input("Pilih opsi: ")
 
+            # cek apakah reservasi sudah ada, jika ada tampilkan tabel
             if opsi == "1":
                 if not data:
                     print("Belum ada reservasi.")
                 else:
                     tabelreserv(data)
                 clearpause()
-                
+            # membatalkan reservasi, jika lunas saldo dikembalikan
             elif opsi == "2":
                 tabelreserv(data)
                 resid = int(input("Masukkan ID Reservasi yang ingin dibatalkan: "))
@@ -184,7 +198,7 @@ def managereserv():
                     else:
                         print("Reservasi tidak dibatalkan")
                         clearpause()
-
+            # keluar
             elif opsi == "0":
                 break
             else:
@@ -196,6 +210,7 @@ def managereserv():
             clearpause()
             continue
 
+# registrasi user baru
 def registrasi():
     users = readjson("users.json")
     usn = input("Masukkan username: ")
@@ -228,6 +243,7 @@ def registrasi():
     print("Registrasi berhasil")
     clearpause()
 
+# tabel layanan
 def layanan():
     pelayanan = PrettyTable()
     pelayanan.title = "LAYANAN YANG TERSEDIA"
@@ -236,6 +252,7 @@ def layanan():
     pelayanan.add_row(["Penitipan (Daycare)", "Rp.150k/malam"])
     print(pelayanan)
 
+# cek reservasi dari id user yang terlogin
 def lihat_reservasi(user):
     data = readjson("reservations.json")
     milik_user = [reservasi for reservasi in data if reservasi.get("user_id") == user["id"]]
@@ -254,6 +271,7 @@ def lihat_reservasi(user):
             tabel.add_row([data["layanan"], data["nama"], data["jenis"], f"{data['malam']} malam", data["tanggal"], data["jam"], f"Rp.{data['harga']}", data["status"]])
     print(tabel)
 
+# reservasi layanan perawatan atau penitipan
 def reservasi(user):
     while True:
             print("Reservasi Layanan")
@@ -263,6 +281,7 @@ def reservasi(user):
             print("0: Keluar")
             opsi = input("Pilih layanan: ")
 
+            # input data reservasi perawatan
             if opsi == "1":
                 nama = input_teks("Masukkan nama hewan: ")
                 jenis = input_hewan("Masukkan jenis hewan (kucing/anjing): ")
@@ -292,7 +311,7 @@ def reservasi(user):
                 print(f"Reservasi berhasil dengan ID: {data['res_id']}")
                 clearpause()
                 break
-
+            # input data reservasi penitipan
             elif opsi == "2":
                 nama = input_teks("Masukkan nama hewan: ")
                 jenis = input_hewan("Masukkan jenis hewan (kucing/anjing): ")
@@ -320,6 +339,7 @@ def reservasi(user):
                 clearpause()
                 break
 
+            # list tabel (lihat_reservasi())
             elif opsi == "3":
                 lihat_reservasi(user)
                 clearpause()
@@ -329,6 +349,7 @@ def reservasi(user):
                 clears()
                 print("Opsi tidak valid")
 
+# topup saldo user (fixed)
 def topup(user):
     print("======== LIST NOMINAL TOPUP ========")
     print("1: Rp.200.000")
@@ -368,6 +389,7 @@ def topup(user):
     print("Saldo:", f"Rp.{user['saldo']}")
     clearpause()
 
+# sistem emoney, pembayaran reservasi, dan topup saldo
 def emoney(user):
     while True:
         print("\n=== E-MONEY ===")
@@ -378,10 +400,12 @@ def emoney(user):
 
         pilih = input("Opsi: ")
 
+        # topup
         if pilih == "1":
             clears()
             topup(user)
 
+        # pembayaran reservasi
         elif pilih == "2":
             data = readjson("reservations.json")
 
@@ -452,6 +476,7 @@ def emoney(user):
                 clearpause()
                 break
 
+            # jika saldo tidak cukup, maka dilemparkan ke menu topup (jika user mau)
             else:
                 print("Saldo tidak cukup!")
                 confirm = input("Apakah kamu ingin topup saldo? (y/n)")
@@ -467,6 +492,7 @@ def emoney(user):
         else:
             print("Pilihan tidak valid!")
 
+# menu user
 def menu_user(user):
     while True:
         print("======== MENU USER ========")
@@ -494,6 +520,7 @@ def menu_user(user):
             clears()
             print("Opsi tidak valid")
 
+# menu admin
 def menu_admin(user):
     while True:
         print("======== MENU ADMIN ========")
@@ -517,6 +544,7 @@ def menu_admin(user):
             clears()
             print("Opsi tidak valid")
 
+# logika login
 def login():
     username = input("Masukkan username: ")
     password = pwinput.pwinput("Masukkan password: ")
@@ -541,7 +569,8 @@ def login():
     print("Username atau password salah.")
     time.sleep(2)
     clears()
-    
+
+# main menu
 def main():
     while True:
         print("Selamat datang di aplikasi PetCare")
@@ -561,6 +590,7 @@ def main():
         else:
             print("Opsi tidak valid")
 
+# jika ctrl+c
 if __name__ == "__main__":
     try:
         main()
