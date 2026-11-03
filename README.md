@@ -84,7 +84,7 @@ Pada gambar di bawah menampilkan menu `Layanan` yang berfungsi untuk melihat ata
 <img width="548" height="413" alt="image" src="https://github.com/user-attachments/assets/bbce4c63-fbd1-4552-a1e6-81d1300617fb" />
 
 
-Pada gambar di bawah menampilkan "Reservasi" user bisa melakukan reservasi atau pemesanan untuk layanan yang di inginkan.<br>
+Pada gambar di bawah menampilkan `Reservasi` user bisa melakukan reservasi atau pemesanan untuk layanan yang di inginkan.<br>
 
 Jika memilih `Perawatan` maka sistem akan menampilkan: <br>
 <img width="616" height="383" alt="image" src="https://github.com/user-attachments/assets/7f1abfd9-5ff6-4702-9177-d2a0a946e4eb" />
@@ -97,7 +97,7 @@ Jika memilih top up maka akan seperti di bawah ini:<br>
 
 <img width="657" height="420" alt="image" src="https://github.com/user-attachments/assets/7a22144d-1d60-4e57-89cd-24636bc2ed82" />
 
-Jika memilih pembayaran atau bayar reservasi<br>
+Jika memilih `pembayaran` atau bayar reservasi<br>
 
 <img width="344" height="422" alt="image" src="https://github.com/user-attachments/assets/f8318fc2-50d6-4e2e-b768-d0f3d3530931" />
 
