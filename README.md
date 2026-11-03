@@ -43,9 +43,9 @@ Pada menu ini user di berikan beberapa menu pilihan:<br>
 
 
 Pada role admin terdapat pilihan:
-1. `Manajemen user`
-2. `Manajemen Reservasi`
-0. `Keluar`
+1. `Manajemen user` jika admin memilih opsi ini maka akan menampilkan beberapa pilihan lain seperti `lihat user` dan `nonaktifkan/aktifkan user` <br>
+2. `Manajemen Reservasi` jika admin memilih opsi ini maka akan menampilkan `list reservasi` berguna untuk melihat list Reservasi dan `pembatalan reservasi` di gunakan untuk membatalkan reservasi <br>
+3. `Keluar` di gunakan untuk keluar dari menu<br>
 
 
 
