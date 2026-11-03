@@ -16,7 +16,7 @@ Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk me
 <h2>Flowchart:</h2><br>
 
 **Menu Utama**<br>
-Pada bagian menu utama terdapat pilihan 'login' bagi pengguna dan admin, 'registrasi' untuk pengguna yang belum meiliki akun, dan 'keluar' untuk keluar dari menu utama. Pada bagian login sistem akan mendeteksi apakah yang login adalah admin atau user jika yang login adalah user akan di arahkan ke menu user dan jika admin maka akan di arahkan ke menu admin. 
+Pada bagian menu utama terdapat pilihan `login` bagi pengguna dan admin, `registrasi` untuk pengguna yang belum meiliki akun, dan `keluar` untuk keluar dari menu utama. Pada bagian login sistem akan mendeteksi apakah yang login adalah admin atau user jika yang login adalah user akan di arahkan ke menu user dan jika admin maka akan di arahkan ke menu admin. 
 
 <img width="696" height="672" alt="image" src="https://github.com/user-attachments/assets/eab17ec2-2f78-49f3-8ef1-3c8ad11d658c" />
 
