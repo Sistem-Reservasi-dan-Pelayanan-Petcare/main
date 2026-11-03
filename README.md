@@ -20,7 +20,7 @@ Pada bagian menu utama terdapat pilihan 'login' bagi pengguna dan admin, 'regist
 
 <img width="696" height="672" alt="image" src="https://github.com/user-attachments/assets/eab17ec2-2f78-49f3-8ef1-3c8ad11d658c" />
 
-<h3>Menu Registrasi</h3><br>
+**Menu Registrasi**<br>
 <img width="403" height="667" alt="image" src="https://github.com/user-attachments/assets/33cab28b-facf-4bae-aa5b-35735774d24b" />
 
 Pada bagian registrasi, user akan membuat akun di mana penguna akan membuat username terlebih dahulu, apabila username sudah dipakai maka user akan diminta untuk memasukkan ulang namanya. Kemudian user memasukkan password
@@ -37,7 +37,7 @@ Pada menu ini user di berikan beberapa menu pilihan:<br>
 0. `Keluar` jika pengguna memilih opsi ini maka pengguna akan di kembalikan ke menu sebelumnya. <br>
 
 
-**Flowchart admin**<br>
+**Menu Admin**<br>
 
 <img width="3222" height="1702" alt="admin fikss drawio" src="https://github.com/user-attachments/assets/377e70f6-d17f-45c7-9af9-56661bd7f7f7" />
 
