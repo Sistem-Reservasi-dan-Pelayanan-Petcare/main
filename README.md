@@ -82,6 +82,7 @@ Pada menu "Saldo & Pembayaran" berfungsi untuk melakukan top up saldo dan melaku
 Jika memilih top up maka akan seperti di bawah ini:<br>
 
 <img width="657" height="420" alt="image" src="https://github.com/user-attachments/assets/7a22144d-1d60-4e57-89cd-24636bc2ed82" />
+
 Jika memilih pembayaran atau bayar reservasi<br>
 
 <img width="344" height="422" alt="image" src="https://github.com/user-attachments/assets/f8318fc2-50d6-4e2e-b768-d0f3d3530931" />
