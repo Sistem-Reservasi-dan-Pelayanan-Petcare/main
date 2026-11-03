@@ -38,13 +38,15 @@ Pada menu ini user di berikan beberapa menu pilihan:<br>
 
 
 **Flowchart admin**<br>
+
+<img width="3222" height="1702" alt="admin fikss drawio" src="https://github.com/user-attachments/assets/377e70f6-d17f-45c7-9af9-56661bd7f7f7" />
+
+
 Pada role admin terdapat pilihan:
-1. Manajemen user
-2. Manajemen Reservasi
-0. Keluar
+1. `Manajemen user`
+2. `Manajemen Reservasi`
+0. `Keluar`
 
-
-<img width="3083" height="1702" alt="menu admin fiks drawio" src="https://github.com/user-attachments/assets/f25f8eeb-7b51-47b0-b5c0-3aa700648c8d" />
 
 
 <h2>Daftar Fitur per Role:</h2><br>
