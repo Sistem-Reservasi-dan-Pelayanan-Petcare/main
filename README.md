@@ -16,23 +16,36 @@ Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk me
 <h2>Flowchart:</h2><br>
 
 **Menu Utama**<br>
-
+Pada bagian menu utama terdapat pilihan 'login' bagi pengguna dan admin, 'registrasi' untuk pengguna yang belum meiliki akun, dan 'keluar' untuk keluar dari menu utama. Pada bagian login sistem akan mendeteksi apakah yang login adalah admin atau user jika yang login adalah user akan di arahkan ke menu user dan jika admin maka akan di arahkan ke menu admin. 
 
 <img width="696" height="672" alt="image" src="https://github.com/user-attachments/assets/eab17ec2-2f78-49f3-8ef1-3c8ad11d658c" />
 
 <h3>Menu Registrasi</h3><br>
 <img width="403" height="667" alt="image" src="https://github.com/user-attachments/assets/33cab28b-facf-4bae-aa5b-35735774d24b" />
 
+Pada bagian registrasi, user akan membuat akun di mana penguna akan membuat username terlebih dahulu, apabila username sudah dipakai maka user akan diminta untuk memasukkan ulang namanya. Kemudian user memasukkan password
+
 
 **Menu User atau Pengguna**<br>
 
 <img width="2312" height="1722" alt="Menu Pengguna drawio" src="https://github.com/user-attachments/assets/63e76ba3-1251-4e4c-b890-96c71be956a2" />
 
+Pada menu ini user di berikan beberapa menu pilihan:<br>
+1. `Layanan` jika pengguna memillih opsi ini maka akan di tampilkan layanan apa saja yang tersedia.<br>
+2. `Reservasi` jika pengguna memilih opsi ini maka sistem akan menampilkan `penitipan` dan `perawatan` serta `keluar` <br>
+3. `Saldo & Pembayaran` jika pengguna memilih menu ini maka sistem akan menampilkan dua opsi lagi yaitu `top up` opsi ini di gunakan untuk top up saldo pengguna agar bisa membayar reservasi dan `pembayaran` adalah opsi di mana pengguna dapat membayar reservasi. <br>
+0. `Keluar` jika pengguna memilih opsi ini maka pengguna akan di kembalikan ke menu sebelumnya. <br>
+
 
 **Flowchart admin**<br>
+Pada role admin terdapat pilihan:
+1. Manajemen user
+2. Manajemen Reservasi
+0. Keluar
 
 
 <img width="1600" height="758" alt="WhatsApp Image 2026-10-27 at 12 05 17" src="https://github.com/user-attachments/assets/400f0ac7-1667-4dc2-9e77-8f962890945d" />
+
 
 
 <h2>Daftar Fitur per Role:</h2><br>
@@ -41,7 +54,7 @@ Sistem Reservasi dan Pelayanan Pet Care merupakan sistem yang dirancang untuk me
 Pada menu admin ada beberapa fitur seperti:
 1. Manajemen User<br>
 2. Manajemen Reservas<br>
-3. Logout<br>
+0. Logout<br>
 
 
 **Daftar Fitur Pengguna**<br>
@@ -49,7 +62,7 @@ Pada menu pengguna ada beberapa fitur seperti:
 1. Layanan<br>
 2. Reservasi<br>
 3. Saldo & Pembayaran<br>
-4. Logout <br>
+0. Logout <br>
 
 
 <h2>Screenshot Output & Penjelasan:</h2>
