@@ -44,8 +44,7 @@ Pada role admin terdapat pilihan:
 0. Keluar
 
 
-<img width="1600" height="758" alt="WhatsApp Image 2026-10-27 at 12 05 17" src="https://github.com/user-attachments/assets/400f0ac7-1667-4dc2-9e77-8f962890945d" />
-
+<img width="3083" height="1702" alt="menu admin fiks drawio" src="https://github.com/user-attachments/assets/f25f8eeb-7b51-47b0-b5c0-3aa700648c8d" />
 
 
 <h2>Daftar Fitur per Role:</h2><br>
